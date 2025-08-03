@@ -7,6 +7,9 @@ import Cart from "./pages/Cart";
 import Services from "./components/services";
 import Chatbot from "./components/ChatBot";
 import { Routes, Route } from "react-router-dom";
+import Feedback from "./pages/Feedback";
+import Profile from "./pages/Profile";
+import CustomerSupport from "./pages/CustomerSupport";
 
 function App() {
   return (
@@ -18,6 +21,10 @@ function App() {
       <Route path="/cart" element={<Cart />} />
       <Route path="/services" element={<Services />} />
       <Route path="/chatbot" element={<Chatbot />} />
+      <Route path="/feedback" element={<Feedback />} />
+      <Route path="/profile" element={<Profile />} />
+      <Route path="/support" element={<CustomerSupport />} />
+      <Route path="*" element={<div>404 Not Found</div>} />
     </Routes>
   );
 }

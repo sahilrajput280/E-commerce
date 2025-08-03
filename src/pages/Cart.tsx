@@ -51,6 +51,8 @@ const Cart: React.FC = () => {
     localStorage.setItem("cart", JSON.stringify([]));
   };
 
+  const [paymentMethod, setPaymentMethod] = useState("upi");
+
   const generatePDF = () => {
   const doc = new jsPDF();
 
@@ -233,25 +235,82 @@ const Cart: React.FC = () => {
         </div>
         {/* Dummy Payment Portal */}
         {showPortal && (
-          <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-            <div className="bg-white rounded-2xl shadow-xl p-8 w-80 text-center">
-              <h3 className="text-xl font-bold mb-4 text-gray-800">Dummy Payment Portal</h3>
-              <p className="mb-6 text-gray-600">Click below to simulate payment.</p>
-              <button
-                className="bg-indigo-600 text-white px-6 py-2 rounded-md font-semibold"
-                onClick={handlePayment}
-              >
-                Pay ₹{total.toFixed(2)}
-              </button>
-              <button
-                className="mt-4 text-gray-500 underline"
-                onClick={() => setShowPortal(false)}
-              >
-                Cancel
-              </button>
-            </div>
+  <div className="fixed inset-0 bg-black/85 flex items-center justify-center z-50">
+    <div className="bg-white rounded-2xl shadow-xl p-8 w-96 text-center">
+      <h3 className="text-xl font-bold mb-4 text-gray-800">Payment Portal</h3>
+
+      <label className="block text-left mb-2 font-medium text-gray-700">Select Payment Method:</label>
+      <select
+        value={paymentMethod}
+        onChange={(e) => setPaymentMethod(e.target.value)}
+        className="w-full mb-4 px-4 py-2 border rounded-md"
+      >
+        <option value="upi">UPI</option>
+        <option value="card">Debit/Credit Card</option>
+        <option value="paytm">Paytm Wallet</option>
+      </select>
+
+      {/* Dynamic Inputs */}
+      {paymentMethod === "upi" && (
+        <input
+          type="text"
+          placeholder="Enter UPI ID"
+          className="w-full mb-4 px-4 py-2 border rounded-md"
+        />
+      )}
+      {paymentMethod === "card" && (
+        <>
+          <input
+            type="text"
+            placeholder="Card Number"
+            maxLength={16}
+            className="w-full mb-2 px-4 py-2 border rounded-md"
+          />
+          <div className="flex gap-2 mb-2">
+            <input
+              type="text"
+              placeholder="MM/YY"
+              maxLength={5}
+              className="flex-1 px-4 py-2 border rounded-md"
+            />
+            <input 
+              type="text"
+              placeholder="CVV"
+              maxLength={3}
+              className="w-16 h-10 border border-gray-300 rounded-md text-center text-sm"
+            />
           </div>
-        )}
+          <input
+            type="text"
+            placeholder="Card Holder Name"
+            className="w-full mb-4 px-4 py-2 border rounded-md"
+          />
+        </>
+      )}
+      {paymentMethod === "paytm" && (
+        <input
+          type="text"
+          placeholder="Paytm Mobile Number"
+          maxLength={10}
+          className="w-full mb-4 px-4 py-2 border rounded-md"
+        />
+      )}
+
+      <button
+        className="bg-green-600 text-white px-6 py-2 rounded-md font-semibold w-full"
+        onClick={handlePayment}
+      >
+        Confirm Payment of ₹{total.toFixed(2)}
+      </button>
+      <button
+        className="mt-4 text-gray-500 underline"
+        onClick={() => setShowPortal(false)}
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
+)}
       </section>
     </>
   );

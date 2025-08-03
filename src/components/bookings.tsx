@@ -202,6 +202,7 @@ const BookingForm: React.FC = () => {
                 type="tel"
                 name="phone"
                 placeholder="#####-######"
+                maxLength={10}
                 value={form.phone}
                 onChange={handleChange}
                 required

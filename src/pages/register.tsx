@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { EmailIcon, UserIcon, PhoneIcon } from "../components/Icons";
+import { EmailIcon, UserIcon, PhoneIcon , LockIcon} from "../components/Icons";
 import { auth } from "../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
@@ -21,9 +21,17 @@ const Register: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      // After successful registration
       await createUserWithEmailAndPassword(auth, form.email, form.password);
-      localStorage.setItem("user", JSON.stringify({ email: form.email })); // Add this line
+      // Save all user details to localStorage
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          firstName: form.firstName,
+          lastName: form.lastName,
+          email: form.email,
+          contact: form.contact,
+        })
+      );
       alert("Registered successfully!");
       navigate("/login");
     } catch (error: any) {
@@ -68,7 +76,7 @@ const Register: React.FC = () => {
         >
           <h2 className="text-2xl font-semibold mb-1">Sign up now</h2>
           <p className="text-gray-500 mb-4 text-sm">
-            Lorem ipsum dolor sit amet, consectetur
+            Register and get access to exclusive features and offers.
           </p>
           <div className="relative">
             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-blue-600">
@@ -120,6 +128,7 @@ const Register: React.FC = () => {
               type="text"
               name="contact"
               placeholder="Contact Number"
+              maxLength={10}
               value={form.contact}
               onChange={handleChange}
               className="pl-10 pr-3 py-2 border rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -128,7 +137,7 @@ const Register: React.FC = () => {
           </div>
           <div className="relative">
             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-blue-600">
-              <PhoneIcon />
+              <LockIcon />
             </span>
             <input
               type="password"

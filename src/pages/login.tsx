@@ -20,7 +20,6 @@ const Login: React.FC = () => {
     try {
       // After successful login
       await signInWithEmailAndPassword(auth, form.email, form.password);
-      localStorage.setItem("user", JSON.stringify({ email: form.email })); // Add this line
       alert("Logged in successfully!");
       navigate("/");
     } catch (error: any) {

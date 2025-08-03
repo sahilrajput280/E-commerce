@@ -56,7 +56,7 @@ const Services: React.FC = () => {
             <span className="flex items-center">
               <span className="inline-block w-10 h-10 rounded-full bg-yellow-200 mr-4"></span>
               <span className="text-2xl md:text-3xl font-bold text-gray-900 mr-4">
-                Extended Car Services
+                Extended Services
               </span>
             </span>
             <span className="ml-auto text-2xl text-gray-700">
@@ -78,13 +78,8 @@ const Services: React.FC = () => {
                 <ul className="space-y-2">
                   <li>
                     <span className="font-bold">Don't see it?</span>{" "}
-                    <button
-                      onClick={() => {
-                        window.dispatchEvent(new Event("openChatBot"));
-                      }}
-                      className="text-blue-600 font-semibold hover:underline"
-                    >
-                      Let’s chat
+                    <button className="text-blue-600 font-semibold hover:underline" onClick={() => (window as any).openChatBot()}>
+                      Let's Chat
                     </button>
                   </li>
                 </ul>

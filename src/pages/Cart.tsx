@@ -52,21 +52,63 @@ const Cart: React.FC = () => {
   };
 
   const generatePDF = () => {
-    const doc = new jsPDF();
-    doc.text("Receipt", 10, 10);
-    cart.forEach((item, idx) => {
-      doc.text(
-        `${idx + 1}. ${item.title} - ${item.price}`,
-        10,
-        20 + idx * 10
-      );
-    });
-    doc.text(`Subtotal: ₹${subtotal.toFixed(2)}`, 10, 30 + cart.length * 10);
-    doc.text(`GST (18%): ₹${gst.toFixed(2)}`, 10, 40 + cart.length * 10);
-    doc.text(`Platform Fee: ₹${PLATFORM_FEE.toFixed(2)}`, 10, 50 + cart.length * 10);
-    doc.text(`Total: ₹${total.toFixed(2)}`, 10, 60 + cart.length * 10);
-    doc.save("receipt.pdf");
-  };
+  const doc = new jsPDF();
+
+  // Styles
+  const lineHeight = 10;
+  let y = 20;
+
+  // Header
+  doc.setFontSize(18);
+  doc.setFont("helvetica", "bold");
+  doc.text("CarSe-Chalo Receipt", 10, y);
+  y += lineHeight;
+
+  // Date
+  doc.setFontSize(11);
+  doc.setFont("helvetica", "normal");
+  const now = new Date();
+  doc.text(`Date: ${now.toLocaleDateString()} ${now.toLocaleTimeString()}`, 10, y);
+  y += lineHeight;
+
+  // Divider
+  doc.setDrawColor(150);
+  doc.line(10, y, 200, y);
+  y += lineHeight;
+
+  // Activities list
+  cart.forEach((item, idx) => {
+    doc.setFont("helvetica", "bold");
+    doc.text(`${idx + 1}. ${item.title}`, 10, y);
+    y += 6;
+    doc.setFont("helvetica", "normal");
+    doc.text(`    ${item.subtitle} | ${item.details}`, 10, y);
+    y += 6;
+    doc.text(`    ₹${item.price}`, 10, y);
+    y += lineHeight;
+  });
+
+  // Divider before summary
+  doc.line(10, y, 200, y);
+  y += lineHeight;
+
+  // Summary
+  doc.setFont("helvetica", "bold");
+  doc.text(`Subtotal: ₹${subtotal.toFixed(2)}`, 10, y);
+  y += lineHeight;
+  doc.text(`GST (18%): ₹${gst.toFixed(2)}`, 10, y);
+  y += lineHeight;
+  doc.text(`Platform Fee: ₹${PLATFORM_FEE.toFixed(2)}`, 10, y);
+  y += lineHeight;
+
+  doc.setFontSize(13);
+  doc.setTextColor(0, 102, 51); // greenish
+  doc.text(`Total: ₹${total.toFixed(2)}`, 10, y);
+
+  // Save
+  doc.save("CarSe-Chalo-Receipt.pdf");
+};
+
 
   if (cart.length === 0 && !paid) {
     return (

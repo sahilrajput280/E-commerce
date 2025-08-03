@@ -26,7 +26,7 @@ const sections = [
 const LandingPage: React.FC = () => {
   const [current, setCurrent] = useState(0);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [cartCount, setCartCount] = useState(0);
+  const [, setCartCount] = useState(0);
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("user"));
 
   const [search, setSearch] = useState("");
@@ -50,6 +50,10 @@ const LandingPage: React.FC = () => {
     updateCartCount();
     window.addEventListener("storage", updateCartCount);
     return () => window.removeEventListener("storage", updateCartCount);
+  }, []);
+
+  useEffect(() => {
+  (window as any).openChatBot = () => setShowChatBot(true);
   }, []);
 
   useEffect(() => {
@@ -79,7 +83,7 @@ const LandingPage: React.FC = () => {
           <h2 className="text-lg font-semibold mb-4">Menu</h2>
           <Link to="/profile" className="mb-2 text-black hover:underline text-left">Profile</Link>
           <Link to="/cart" className="mb-2 text-black hover:underline text-left">
-            Manage Cart ({cartCount})
+            Manage Cart 
           </Link>
           <Link to="/support" className="mb-2 text-black hover:underline text-left">Customer Support</Link>
           <Link to="/feedback" className="mb-4 text-black hover:underline text-left">Feedback</Link>

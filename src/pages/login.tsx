@@ -19,9 +19,11 @@ const Login: React.FC = () => {
     e.preventDefault();
     try {
       // After successful login
-      await signInWithEmailAndPassword(auth, form.email, form.password);
-      alert("Logged in successfully!");
-      navigate("/");
+      const userCredential = await signInWithEmailAndPassword(auth, form.email, form.password);
+      const userData = userCredential.user;
+      localStorage.setItem("user", JSON.stringify(userData));
+      window.dispatchEvent(new Event("storage")); // This will trigger LandingPage's listener
+      navigate("/"); // or use history.push("/")
     } catch (error: any) {
       alert(error.message);
     }

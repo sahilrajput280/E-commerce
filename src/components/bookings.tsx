@@ -14,6 +14,8 @@ type BookingFormType = {
   returnTime: string;
   passengers: string;
   verification: boolean;
+  serviceType: string;
+  city: string;
 };
 
 const containerVariants: Variants = {
@@ -46,6 +48,8 @@ const BookingForm: React.FC = () => {
     returnTime: "",
     passengers: "",
     verification: false,
+    serviceType: "",
+    city: "",
   });
 
   const handleChange = (
@@ -82,6 +86,8 @@ const BookingForm: React.FC = () => {
           returnDate: form.returnDate,
           returnTime: form.returnTime,
           passengers: form.passengers,
+          serviceType: form.serviceType,
+          city: form.city,
         },
         import.meta.env.VITE_EMAILJS_PUBLIC_KEY!
       );
@@ -97,6 +103,8 @@ const BookingForm: React.FC = () => {
         returnTime: "",
         passengers: "",
         verification: false,
+        serviceType: "",
+        city: "",
       });
     } catch (error) {
       console.error("EmailJS Error:", error);
@@ -137,13 +145,60 @@ const BookingForm: React.FC = () => {
           viewport={{ once: true, amount: 0.2 }}
           className="bg-white/90 backdrop-blur-lg rounded-3xl shadow-2xl p-10 w-full max-w-2xl z-20 border border-gray-200 ml-auto"
         >
-          {/* Heading */}
           <motion.h2
             variants={itemVariants}
             className="text-2xl md:text-3xl font-bold text-[#221d53] mb-6 text-center"
           >
             BOOK YOUR RIDE
           </motion.h2>
+
+          {/* Service Type */}
+          <motion.div variants={itemVariants} className="mb-4">
+            <label className="block font-semibold text-gray-700 mb-1 text-left">
+              Type of Service<span className="text-red-500">*</span>
+            </label>
+            <select
+              name="serviceType"
+              value={form.serviceType}
+              onChange={handleChange}
+              required
+              className="border border-gray-300 rounded-lg px-4 py-2 w-full focus:ring-2 focus:ring-blue-300"
+            >
+              <option value="">*Please Select*</option>
+              <option value="Rental Car">Rental Car</option>
+              <option value="Pickup">Pickup</option>
+            </select>
+          </motion.div>
+
+          {/* City Selection */}
+          <motion.div variants={itemVariants} className="mb-4">
+            <label className="block font-semibold text-gray-700 mb-1 text-left">
+              Select City<span className="text-red-500">*</span>
+            </label>
+            <select
+              name="city"
+              value={form.city}
+              onChange={handleChange}
+              required
+              className="border border-gray-300 rounded-lg px-4 py-2 w-full focus:ring-2 focus:ring-blue-300"
+            >
+              <option value="">*Please Select*</option>
+              {[
+                "Delhi",
+                "Mumbai",
+                "Bengaluru",
+                "Hyderabad",
+                "Ahmedabad",
+                "Chennai",
+                "Kolkata",
+                "Pune",
+                "Jaipur",
+                "Lucknow",
+              ].map((city) => (
+                <option key={city} value={city}>{city}</option>
+              ))}
+            </select>
+          </motion.div>
 
           {/* Name */}
           <motion.div variants={itemVariants} className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
@@ -284,7 +339,7 @@ const BookingForm: React.FC = () => {
             >
               <option value="">*Please Select*</option>
               {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
-                <option key={n} value={n}>{n}</option>
+                <option key={n} value={n.toString()}>{n}</option>
               ))}
             </select>
           </motion.div>

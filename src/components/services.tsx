@@ -77,10 +77,10 @@ const Services: React.FC = () => {
                 ))}
                 <ul className="space-y-2">
                   <li>
-                    <span className="font-bold">Don't see it?</span>{" "}
-                    <button className="text-blue-600 font-semibold hover:underline" onClick={() => (window as any).openChatBot()}>
+                    <span className="font-bold">Don't see it?</span>{""}
+<p className="text-blue-400 font-semibold hover:underline" onClick={() => (window as any).openChatBot()}>
                       Let's Chat
-                    </button>
+                    </p>
                   </li>
                 </ul>
               </div>

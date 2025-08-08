@@ -85,6 +85,9 @@ const LandingPage: React.FC = () => {
           <Link to="/cart" className="mb-2 text-black hover:underline text-left">
             Manage Cart 
           </Link>
+          <Link to="/cart" className="mb-2 text-black hover:underline text-left">
+            Order History  
+          </Link>
           <Link to="/support" className="mb-2 text-black hover:underline text-left">Customer Support</Link>
           <Link to="/feedback" className="mb-4 text-black hover:underline text-left">Feedback</Link>
           <button

@@ -1,3 +1,12 @@
+export interface Activity {
+  title: string;
+  subtitle: string;
+  details: string;
+  description: string;
+  price: string;
+  images: string[];
+}
+
 export const activities: Activity[] = [
   {
     title: "Highlights Of Palampur",
@@ -59,19 +68,7 @@ export const activities: Activity[] = [
     description: "Exciting Day Trip near Dharamshala with Paragliding in Bir, Culture & Art Escape the ordinary.",
     price: "INR 4800.00",
   },
-  {
-    title: "Little Lhasa – Dharamshala",
-    images: [
-      "https://tomaszwagner.co/wp-content/gallery/india/photos_dharamshala_16.jpg", // Monastery
-      "https://media.gettyimages.com/id/1061857372/photo/dharamshala-india-november-15-a-view-of-snow-covered-dhauladhar-range-from-dharamshala.jpg?s=612x612&w=0&k=20&c=EmksAKLefcnGwC3FmQdTRY2OCCUU2lr8mVBToDT6XUE=", // Adventure
-      "https://media.istockphoto.com/id/1302465637/photo/triund-top-dharamshala-himachal-pradesh.jpg?s=612x612&w=0&k=20&c=N2u9IUFtyTXVccAQbUsilwihWtBxGIhNAe8J4XeUv10=", // Mountains
-, // Hills
-    ],
-    subtitle: "Day Trips & Excursions",
-    details: "6 Places | 8 Activity",
-    description: "Day trip near Dharamshala and Palampur – This trip is suitable for those looking taste the...",
-    price: "INR 2500.00",
-  },
+  
   {
     title: "Weekend Mountain Getaways – Manali (2 Nights / 3 Days)",
     images: [

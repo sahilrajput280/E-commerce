@@ -1,4 +1,4 @@
-export const activities = [
+export const activities: Activity[] = [
   {
     title: "Highlights Of Palampur",
     images: [

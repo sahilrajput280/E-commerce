@@ -33,7 +33,7 @@ const LandingPage: React.FC = () => {
   const [results, setResults] = useState<{ id: string; label: string }[]>([]);
   const [showResults, setShowResults] = useState(false);
   const [showChatBot, setShowChatBot] = useState(false);
-  const [showMobileSearch, setShowMobileSearch] = useState(false);
+
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -53,7 +53,7 @@ const LandingPage: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    (window as any).openChatBot = () => setShowChatBot(true);
+  (window as any).openChatBot = () => setShowChatBot(true);
   }, []);
 
   useEffect(() => {
@@ -110,29 +110,35 @@ const LandingPage: React.FC = () => {
       )}
 
       {/* Transparent Navbar */}
-      <header className="sticky top-0 left-0 w-full flex items-center justify-between px-4 md:px-8 py-4 bg-white/10 backdrop-blur-md shadow-none z-40">
+      <header className="sticky top-0 left-0 w-full flex items-center justify-between px-8 py-4 bg-white/10 backdrop-blur-md shadow-none z-40">
         <div className="flex items-center gap-3">
           <img
             src="https://cdn-icons-png.flaticon.com/512/854/854894.png"
             alt="CarSe-Chalo Logo"
-            className="w-8 h-8 md:w-10 md:h-10 object-contain mr-2"
+            className="w-10 h-10 object-contain mr-2"
           />
-          <span className="ml-2 text-2xl md:text-4xl flex items-center font-sans">
+          <span className="ml-2 text-3xl md:text-4xl flex items-center font-sans">
             <span className="font-black text-gray-900">CarSe</span>
             <span className="font-normal text-gray-900">-Chalo</span>
           </span>
         </div>
 
-        {/* Mobile Search Toggle */}
-        <button
-          className="md:hidden ml-auto mr-3 text-gray-700"
-          onClick={() => setShowMobileSearch((prev) => !prev)}
-        >
-          🔍
-        </button>
-
-        {/* Desktop Search */}
+        {/* Search Bar */}
         <div className="relative ml-4 hidden md:block">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 w-5 h-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16z"
+            />
+          </svg>
           <input
             type="text"
             value={search}
@@ -157,11 +163,14 @@ const LandingPage: React.FC = () => {
                   {section.label}
                 </a>
               ))}
+              {results.length === 0 && (
+                <div className="px-4 py-2 text-gray-500 text-sm">No results found</div>
+              )}
             </div>
           )}
         </div>
 
-        <nav className="hidden md:flex items-center gap-1">
+        <nav className="flex items-center gap-1">
           <a href="#home" className="text-gray-800 hover:text-gray-600 font-medium px-3 py-1 rounded hover:bg-blue-100 transition-colors duration-200">HOME</a>
           <a href="#about" className="text-gray-800 hover:text-gray-600 font-medium px-3 py-1 rounded hover:bg-blue-100 transition-colors duration-200">ABOUT</a>
           <a href="#services" className="text-gray-800 hover:text-gray-600 font-medium px-3 py-1 rounded hover:bg-blue-100 transition-colors duration-200">SERVICES</a>
@@ -172,93 +181,95 @@ const LandingPage: React.FC = () => {
               onClick={() => setIsSidebarOpen(true)}
               className="ml-4 p-2 hover:bg-gray-200 rounded transition"
             >
+              {/* Hamburger Icon */}
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             </button>
           ) : (
             <>
-              <Link to="/login" className="px-3 py-1 border border-black hover:bg-black hover:text-white transition rounded text-sm">LOG-IN</Link>
-              <Link to="/register" className="px-3 py-1 border border-black hover:bg-black hover:text-white transition rounded text-sm">REGISTER</Link>
+              <Link to="/login" className="px-4 py-2 border border-black hover:bg-black hover:text-white transition rounded">LOG-IN</Link>
+              <Link to="/register" className="px-4 py-2 border border-black hover:bg-black hover:text-white transition rounded">REGISTER</Link>
             </>
           )}
         </nav>
       </header>
 
-      {/* Mobile Search Bar */}
-      {showMobileSearch && (
-        <div className="px-4 py-2 bg-white md:hidden">
-          <input
-            type="text"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search..."
-            className="w-full px-3 py-2 border rounded-md text-sm"
-          />
-        </div>
-      )}
-
       {/* Hero Section */}
       <section
         id="home"
-        className="relative h-[60vh] md:h-[80vh] flex flex-col items-center justify-center px-2 text-center"
+        className="relative h-[80vh] flex flex-col items-center justify-center"
         style={{
           backgroundImage: `url(${planeImages[current].replace('/public', '')})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
+          transition: "background-image 0.5s ease-in-out",
         }}
       >
-        <hr className="w-2/3 md:w-1/2 border-t-2 border-white mb-4 md:mb-6" />
-        <h1 className="text-white text-2xl md:text-6xl font-bold uppercase tracking-widest mb-2">LOSE | YOURSELF</h1>
-        <h1 className="text-white text-2xl md:text-6xl font-bold uppercase tracking-widest">DISCOVER | YOURSELF</h1>
-        <hr className="w-2/3 md:w-1/2 border-t-2 border-white mt-4 md:mt-6" />
+        <hr className="w-1/2 border-t-2 border-white mb-6" />
+        <h1 className="text-white md:text-6xl font-bold uppercase tracking-widest mb-2">LOSE | YOURSELF</h1>
+        <h1 className="text-white md:text-6xl font-bold uppercase tracking-widest">DISCOVER | YOURSELF</h1>
+        <hr className="w-1/2 border-t-2 border-white mt-6" />
+        <div className="flex justify-center mt-8 space-x-2">
+          {planeImages.map((_, idx) => (
+            <button
+              key={idx}
+              className={`w-3 h-1 rounded-full ${current === idx ? "bg-white" : "bg-gray-500"} focus:outline-none`}
+              onClick={() => setCurrent(idx)}
+              aria-label={`Go to slide ${idx + 1}`}
+            />
+          ))}
+        </div>
       </section>
 
       {/* Activities Icons */}
-      <section className="flex flex-wrap justify-center gap-8 md:gap-12 bg-[#cacfca] py-12">
-        <div className="flex flex-col items-center w-24">
-          <img src="https://cdn-icons-png.flaticon.com/512/201/201623.png" alt="Car Booking" className="w-12 h-12 md:w-16 md:h-16 mb-2" />
-          <span className="text-gray-700 text-xs md:text-sm">Booking</span>
+      <section className="flex justify-center gap-12 bg-[#cacfca] py-12">
+        <div className="flex flex-col items-center">
+          <img src="https://cdn-icons-png.flaticon.com/512/201/201623.png" alt="Car Booking" className="w-16 h-16 mb-2" />
+          <span className="text-gray-700 text-sm">Booking</span>
         </div>
-        <div className="flex flex-col items-center w-24">
-          <img src="https://cdn-icons-png.flaticon.com/512/616/616494.png" alt="Hot Air Balloon" className="w-12 h-12 md:w-16 md:h-16 mb-2" />
-          <span className="text-gray-700 text-xs md:text-sm">Accessible</span>
+        <div className="flex flex-col items-center">
+          <img src="https://cdn-icons-png.flaticon.com/512/616/616494.png" alt="Hot Air Balloon" className="w-16 h-16 mb-2" />
+          <span className="text-gray-700 text-sm">Accessible</span>
         </div>
-        <div className="flex flex-col items-center w-24">
-          <img src="https://cdn-icons-png.flaticon.com/512/854/854866.png" alt="Travelling" className="w-12 h-12 md:w-16 md:h-16 mb-2" />
-          <span className="text-gray-700 text-xs md:text-sm">Travelling</span>
+        <div className="flex flex-col items-center">
+          <img src="https://cdn-icons-png.flaticon.com/512/854/854866.png" alt="Travelling" className="w-16 h-16 mb-2" />
+          <span className="text-gray-700 text-sm">Travelling</span>
         </div>
       </section>
 
       <section id="about"><About /></section>
       <section id="services"><Services /></section>
-
       {/* Floating Chat Button */}
-      <button
-        onClick={() => setShowChatBot((prev) => !prev)}
-        className="fixed bottom-6 right-6 bg-blue-500 hover:bg-blue-600 text-white rounded-full p-4 shadow-lg z-50"
-      >
-        💬
-      </button>
+<button
+  onClick={() => setShowChatBot((prev) => !prev)}
+  className="fixed bottom-6 right-6 bg-blue-500 hover:bg-blue-600 text-white rounded-full p-4 shadow-lg z-50"
+>
+  💬
+</button>
 
-      {/* Floating ChatBot Container */}
-      {showChatBot && (
-        <div className="fixed bottom-20 right-4 w-72 md:w-80 h-[24rem] md:h-[28rem] bg-white rounded-2xl shadow-lg z-50 overflow-hidden flex flex-col">
-          <div className="bg-[#cacfca] text-gray-800 p-3 flex justify-between items-center">
-            <span className="font-bold">CarSe-Chalo ChatBot</span>
-            <button
-              onClick={() => setShowChatBot(false)}
-              className="text-gray-700 hover:text-black text-lg"
-              aria-label="Close Chatbot"
-            >
-              ✖
-            </button>
-          </div>
-          <div className="flex-1 overflow-y-auto">
-            <ChatBot />
-          </div>
-        </div>
-      )}
+{/* Floating ChatBot Container */}
+{showChatBot && (
+  <div className="fixed bottom-20 right-6 w-80 h-[28rem] bg-white rounded-2xl shadow-lg z-50 overflow-hidden flex flex-col">
+    {/* Header */}
+    <div className="bg-[#cacfca] text-gray-800 p-3 flex justify-between items-center">
+      <span className="font-bold">CarSe-Chalo ChatBot</span>
+      <button
+        onClick={() => setShowChatBot(false)}
+        className="text-gray-700 hover:text-black text-lg"
+        aria-label="Close Chatbot"
+      >
+        ✖
+      </button>
+    </div>
+
+    {/* ChatBot Content */}
+    <div className="flex-1 overflow-y-auto">
+      <ChatBot />
+    </div>
+  </div>
+)}
+
 
       <section id="destinations"><Destinations /></section>
       <section id="Activities"><Activities /></section>

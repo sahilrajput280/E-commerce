@@ -22,7 +22,7 @@ class CarseChaloChatbot {
     "purpose": "ecommerce",
     "theme": "Tours and Travel ",
     "features": "it is destination holiday booking website for Indian Places only.",
-    "makers": "Devansh",
+    "makers": "Sahil",
     "techStack": "React, tailwindcss"
   },
   "sampleQA": [],

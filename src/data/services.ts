@@ -21,6 +21,6 @@ export const services = [
     name: "Packages",
     description: "Exciting and affordable travel packages for your next adventure.",
     image: "/images/travel-package.png",
-    icon: TravelPackage , // Replace with a suitable icon if available
+    icon: TravelPackage , 
   },
 ];

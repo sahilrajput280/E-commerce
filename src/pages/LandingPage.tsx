@@ -34,6 +34,15 @@ const LandingPage: React.FC = () => {
   const [showResults, setShowResults] = useState(false);
   const [showChatBot, setShowChatBot] = useState(false);
 
+  const handleResultClick = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    setSearch("");
+    setShowResults(false);
+  };
+
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -155,9 +164,9 @@ const LandingPage: React.FC = () => {
                   key={section.id}
                   href={`#${section.id}`}
                   className="block px-4 py-2 hover:bg-blue-100 text-left text-sm"
-                  onClick={() => {
-                    setSearch("");
-                    setShowResults(false);
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleResultClick(section.id);
                   }}
                 >
                   {section.label}

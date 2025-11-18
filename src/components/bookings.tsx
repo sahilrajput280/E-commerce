@@ -143,7 +143,7 @@ const BookingForm: React.FC = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
-          className="bg-white/90 backdrop-blur-lg rounded-3xl shadow-2xl p-10 w-full max-w-2xl z-20 border border-gray-200 ml-auto"
+          className="bg-white/90 backdrop-blur-lg rounded-3xl shadow-2xl p-6 md:p-10 w-full max-w-2xl z-20 border border-gray-200 mx-auto md:ml-auto"
         >
           <motion.h2
             variants={itemVariants}

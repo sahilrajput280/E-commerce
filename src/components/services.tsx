@@ -14,8 +14,8 @@ const Services: React.FC = () => {
 
   return (
     <section id="services" className="bg-[#cdd7cd] py-16 flex flex-col items-center">
-      <h2 className="text-6xl font-bold mb-10 text-center text-gray-800">Our Services</h2>
-      <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 px-4">
+      <h2 className="text-3xl md:text-6xl font-bold mb-8 md:mb-10 text-center text-gray-800">Our Services</h2>
+      <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10 px-3 sm:px-4">
         {services.map((service) => {
           const Icon = service.icon;
           return (
@@ -48,10 +48,10 @@ const Services: React.FC = () => {
       </div>
 
       {/* Dropdown Section */}
-      <div className="flex justify-center mt-12 w-full">
+      <div className="flex justify-center mt-10 md:mt-12 w-full px-3 sm:px-0">
         <div className="relative w-full max-w-5xl">
           <div
-            className="bg-white rounded-3xl shadow-md px-8 py-6 flex items-center cursor-pointer transition hover:shadow-lg"
+            className="bg-white rounded-3xl shadow-md px-4 sm:px-8 py-4 sm:py-6 flex items-center cursor-pointer transition hover:shadow-lg"
             onClick={() => setShowDropdown((prev) => !prev)}
           >
             <span className="flex items-center">
@@ -73,9 +73,9 @@ const Services: React.FC = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -6 }}
                 transition={{ duration: 0.34, ease: "easeOut" }}
-                className="bg-white rounded-3xl shadow-md mt-4 px-8 py-6"
+                className="bg-white rounded-3xl shadow-md mt-4 px-4 sm:px-8 py-4 sm:py-6"
               >
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
                   {extendedServices.map((col, idx) => (
                     <ul className="space-y-2" key={idx}>
                       {col.map((item, i) =>

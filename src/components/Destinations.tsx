@@ -51,12 +51,12 @@ const Destinations: React.FC = () => {
 
   return (
     <section id="destinations" className="bg-[#cdd7cd] py-16">
-      <h2 className="text-4xl font-bold mb-10 text-center text-gray-800">
+      <h2 className="text-3xl md:text-4xl font-bold mb-10 text-center text-gray-800">
         Popular Destinations
       </h2>
       <div
         ref={scrollRef}
-        className="flex overflow-x-hidden gap-8 px-8 pb-4 hide-scrollbar scroll-smooth"
+        className="flex overflow-x-auto gap-4 sm:gap-8 px-4 sm:px-8 pb-4 hide-scrollbar scroll-smooth"
         style={{
           scrollBehavior: "smooth",
           maskImage:
@@ -68,12 +68,12 @@ const Destinations: React.FC = () => {
         {destinations.map((dest, idx) => (
           <div
             key={dest.id + "-" + idx}
-            className="flex-shrink-0 w-80 rounded-3xl bg-white shadow-lg overflow-hidden pop-card"
+            className="flex-shrink-0 w-64 sm:w-80 rounded-3xl bg-white shadow-lg overflow-hidden pop-card"
           >
             <img
               src={dest.image}
               alt={dest.name}
-              className="w-full h-64 object-cover"
+              className="w-full h-48 sm:h-64 object-cover"
             />
             <div className="p-4 text-center">
               <h3 className="text-xl font-semibold text-gray-700">

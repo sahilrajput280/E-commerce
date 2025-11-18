@@ -120,7 +120,7 @@ const LandingPage: React.FC = () => {
       )}
 
       {/* Transparent Navbar */}
-      <header className="sticky top-0 left-0 w-full flex items-center justify-between px-8 py-4 bg-white/10 backdrop-blur-md shadow-none z-40">
+      <header className="sticky top-0 left-0 w-full flex items-center justify-between px-4 md:px-8 py-4 bg-white/10 backdrop-blur-md shadow-none z-40">
         <div className="flex items-center gap-3">
           <div className="logo-glow">
             <img
@@ -182,7 +182,7 @@ const LandingPage: React.FC = () => {
           )}
         </div>
 
-  <nav className="flex items-center gap-1">
+  <nav className="flex items-center gap-1 flex-wrap text-sm md:text-base">
           <a href="#home" className="text-gray-800 hover:text-gray-600 font-medium px-3 py-1 rounded hover:bg-blue-100 transition-colors duration-200">HOME</a>
           <a href="#about" className="text-gray-800 hover:text-gray-600 font-medium px-3 py-1 rounded hover:bg-blue-100 transition-colors duration-200">ABOUT</a>
           <a href="#services" className="text-gray-800 hover:text-gray-600 font-medium px-3 py-1 rounded hover:bg-blue-100 transition-colors duration-200">SERVICES</a>
@@ -221,8 +221,8 @@ const LandingPage: React.FC = () => {
         }}
       >
         <hr className="w-1/2 border-t-2 border-white mb-6" />
-        <h1 className="text-white md:text-6xl font-bold uppercase tracking-widest mb-2">LOSE | YOURSELF</h1>
-        <h1 className="text-white md:text-6xl font-bold uppercase tracking-widest">DISCOVER | YOURSELF</h1>
+        <h1 className="text-white text-3xl md:text-6xl font-bold uppercase tracking-widest mb-2">LOSE | YOURSELF</h1>
+        <h1 className="text-white text-3xl md:text-6xl font-bold uppercase tracking-widest">DISCOVER | YOURSELF</h1>
         <hr className="w-1/2 border-t-2 border-white mt-6" />
         <div className="flex justify-center mt-8 space-x-2">
           {planeImages.map((_, idx) => (
@@ -237,7 +237,7 @@ const LandingPage: React.FC = () => {
       </section>
 
       {/* Activities Icons */}
-      <section className="flex justify-center gap-12 bg-[#cacfca] py-12">
+      <section className="flex flex-wrap justify-center gap-6 sm:gap-12 bg-[#cacfca] py-12 px-4">
         <div className="flex flex-col items-center">
           <img src="https://cdn-icons-png.flaticon.com/512/201/201623.png" alt="Car Booking" className="w-16 h-16 mb-2" />
           <span className="text-gray-700 text-sm">Booking</span>
@@ -264,7 +264,7 @@ const LandingPage: React.FC = () => {
 
 {/* Floating ChatBot Container */}
 {showChatBot && (
-  <div className="fixed bottom-20 right-6 w-80 h-[28rem] bg-white rounded-2xl shadow-lg z-50 overflow-hidden flex flex-col">
+  <div className="fixed bottom-20 right-3 sm:right-6 w-[92vw] sm:w-80 h-[70vh] sm:h-[28rem] bg-white rounded-2xl shadow-lg z-50 overflow-hidden flex flex-col">
     {/* Header */}
     <div className="bg-[#cacfca] text-gray-800 p-3 flex justify-between items-center">
       <span className="font-bold">CarSe-Chalo ChatBot</span>

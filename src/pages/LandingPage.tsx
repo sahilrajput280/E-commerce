@@ -86,33 +86,33 @@ const LandingPage: React.FC = () => {
   }, [search]);
 
   return (
-    <div className="text-center font-sans min-h-screen bg-[#929f8c] relative">
+    <div className="text-center font-sans min-h-screen themed-page relative">
       {/* Sidebar */}
       {isSidebarOpen && (
-        <div className="fixed top-0 right-0 h-full w-64 bg-white shadow-lg z-50 flex flex-col p-6 transition-transform duration-300">
+        <div className="fixed top-0 right-0 h-full w-64 bg-card text-primary shadow-lg z-50 flex flex-col p-6 transition-transform duration-300">
           <h2 className="text-lg font-semibold mb-4">Menu</h2>
-          <Link to="/profile" className="mb-2 text-black hover:underline text-left">Profile</Link>
-          <Link to="/cart" className="mb-2 text-black hover:underline text-left">
+          <Link to="/profile" className="mb-2 hover:underline text-left">Profile</Link>
+          <Link to="/cart" className="mb-2 hover:underline text-left">
             Manage Cart 
           </Link>
-          <Link to="/cart" className="mb-2 text-black hover:underline text-left">
+          <Link to="/cart" className="mb-2 hover:underline text-left">
             Order History  
           </Link>
-          <Link to="/support" className="mb-2 text-black hover:underline text-left">Customer Support</Link>
-          <Link to="/feedback" className="mb-4 text-black hover:underline text-left">Feedback</Link>
+          <Link to="/support" className="mb-2 hover:underline text-left">Customer Support</Link>
+          <Link to="/feedback" className="mb-4 hover:underline text-left">Feedback</Link>
           <button
             onClick={() => {  
               localStorage.removeItem("user");
               setIsLoggedIn(false);
               setIsSidebarOpen(false);
             }}
-            className="px-4 py-2 border border-black hover:bg-black hover:text-white transition rounded"
+            className="px-4 py-2 theme-outline rounded mb-2"
           >
             Logout
           </button>
           <button
             onClick={() => setIsSidebarOpen(false)}
-            className="mt-4 text-sm text-gray-500 hover:underline"
+            className="mt-2 text-sm text-muted hover:underline"
           >
             Close
           </button>
@@ -120,7 +120,7 @@ const LandingPage: React.FC = () => {
       )}
 
       {/* Transparent Navbar */}
-      <header className="sticky top-0 left-0 w-full flex items-center justify-between px-4 md:px-8 py-4 bg-white/10 backdrop-blur-md shadow-none z-40">
+      <header className="sticky top-0 left-0 w-full flex items-center justify-between px-4 md:px-8 py-4 bg-card-soft backdrop-blur-md shadow-none z-40">
         <div className="flex items-center gap-3">
           <div className="logo-glow">
             <img
@@ -128,9 +128,9 @@ const LandingPage: React.FC = () => {
               alt="CarSe-Chalo Logo"
               className="w-10 h-10 object-contain mr-2 logo-img"
             />
-            <span className="ml-2 text-3xl md:text-4xl flex items-center font-sans logo-img">
-              <span className="font-black text-gray-900">CarSe</span>
-              <span className="font-normal text-gray-900">-Chalo</span>
+            <span className="ml-2 text-3xl md:text-4xl flex items-center font-sans logo-img text-primary">
+              <span className="font-black">CarSe</span>
+              <span className="font-normal">-Chalo</span>
             </span>
           </div>
         </div>
@@ -156,17 +156,17 @@ const LandingPage: React.FC = () => {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search for Activities, Destinations and More"
-            className="pl-10 pr-4 py-2 rounded-md bg-blue-50 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-300 w-80 text-sm placeholder-gray-500"
+            className="pl-10 pr-4 py-2 rounded-md bg-card border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-300 w-80 text-sm placeholder-gray-500 text-primary"
             onFocus={() => setShowResults(results.length > 0)}
             onBlur={() => setTimeout(() => setShowResults(false), 150)}
           />
           {showResults && (
-            <div className="absolute top-12 right-0 bg-white border border-gray-300 rounded shadow w-80 z-50">
+            <div className="absolute top-12 right-0 bg-card border border-primary rounded shadow w-80 z-50">
               {results.map((section) => (
                 <a
                   key={section.id}
                   href={`#${section.id}`}
-                  className="block px-4 py-2 hover:bg-blue-100 text-left text-sm"
+                  className="block px-4 py-2 text-left text-sm surface-hover"
                   onClick={(e) => {
                     e.preventDefault();
                     handleResultClick(section.id);
@@ -176,22 +176,22 @@ const LandingPage: React.FC = () => {
                 </a>
               ))}
               {results.length === 0 && (
-                <div className="px-4 py-2 text-gray-500 text-sm">No results found</div>
+                <div className="px-4 py-2 text-muted text-sm">No results found</div>
               )}
             </div>
           )}
         </div>
 
-  <nav className="flex items-center gap-1 flex-wrap text-sm md:text-base">
-          <a href="#home" className="text-gray-800 hover:text-gray-600 font-medium px-3 py-1 rounded hover:bg-blue-100 transition-colors duration-200">HOME</a>
-          <a href="#about" className="text-gray-800 hover:text-gray-600 font-medium px-3 py-1 rounded hover:bg-blue-100 transition-colors duration-200">ABOUT</a>
-          <a href="#services" className="text-gray-800 hover:text-gray-600 font-medium px-3 py-1 rounded hover:bg-blue-100 transition-colors duration-200">SERVICES</a>
-          <a href="#Activities" className="text-gray-800 hover:text-gray-600 font-medium px-3 py-1 rounded hover:bg-blue-100 transition-colors duration-200">ACTIVITIES</a>
+  <nav className="flex items-center gap-1 flex-wrap text-sm md:text-base text-primary">
+          <a href="#home" className="font-medium px-3 py-1 rounded surface-hover">HOME</a>
+          <a href="#about" className="font-medium px-3 py-1 rounded surface-hover">ABOUT</a>
+          <a href="#services" className="font-medium px-3 py-1 rounded surface-hover">SERVICES</a>
+          <a href="#Activities" className="font-medium px-3 py-1 rounded surface-hover">ACTIVITIES</a>
 
           {isLoggedIn ? (
             <button
               onClick={() => setIsSidebarOpen(true)}
-              className="ml-4 p-2 hover:bg-gray-200 rounded transition"
+              className="ml-4 p-2 rounded surface-hover"
             >
               {/* Hamburger Icon */}
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -200,8 +200,8 @@ const LandingPage: React.FC = () => {
             </button>
           ) : (
             <>
-              <Link to="/login" className="px-4 py-2 border border-black hover:bg-black hover:text-white transition rounded">LOG-IN</Link>
-              <Link to="/register" className="px-4 py-2 border border-black hover:bg-black hover:text-white transition rounded">REGISTER</Link>
+              <Link to="/login" className="px-4 py-2 theme-outline rounded">LOG-IN</Link>
+              <Link to="/register" className="px-4 py-2 theme-outline rounded">REGISTER</Link>
             </>
           )}
           {/* Theme Toggle */}
@@ -237,18 +237,18 @@ const LandingPage: React.FC = () => {
       </section>
 
       {/* Activities Icons */}
-      <section className="flex flex-wrap justify-center gap-6 sm:gap-12 bg-[#cacfca] py-12 px-4">
+      <section className="flex flex-wrap justify-center gap-6 sm:gap-12 bg-section py-12 px-4">
         <div className="flex flex-col items-center">
           <img src="https://cdn-icons-png.flaticon.com/512/201/201623.png" alt="Car Booking" className="w-16 h-16 mb-2" />
-          <span className="text-gray-700 text-sm">Booking</span>
+          <span className="text-primary text-sm">Booking</span>
         </div>
         <div className="flex flex-col items-center">
           <img src="https://cdn-icons-png.flaticon.com/512/616/616494.png" alt="Hot Air Balloon" className="w-16 h-16 mb-2" />
-          <span className="text-gray-700 text-sm">Accessible</span>
+          <span className="text-primary text-sm">Accessible</span>
         </div>
         <div className="flex flex-col items-center">
           <img src="https://cdn-icons-png.flaticon.com/512/854/854866.png" alt="Travelling" className="w-16 h-16 mb-2" />
-          <span className="text-gray-700 text-sm">Travelling</span>
+          <span className="text-primary text-sm">Travelling</span>
         </div>
       </section>
 
@@ -264,13 +264,13 @@ const LandingPage: React.FC = () => {
 
 {/* Floating ChatBot Container */}
 {showChatBot && (
-  <div className="fixed bottom-20 right-3 sm:right-6 w-[92vw] sm:w-80 h-[70vh] sm:h-[28rem] bg-white rounded-2xl shadow-lg z-50 overflow-hidden flex flex-col">
+  <div className="fixed bottom-20 right-3 sm:right-6 w-[92vw] sm:w-80 h-[70vh] sm:h-[28rem] bg-card rounded-2xl shadow-lg z-50 overflow-hidden flex flex-col">
     {/* Header */}
-    <div className="bg-[#cacfca] text-gray-800 p-3 flex justify-between items-center">
+    <div className="bg-section-alt text-section-alt p-3 flex justify-between items-center">
       <span className="font-bold">CarSe-Chalo ChatBot</span>
       <button
         onClick={() => setShowChatBot(false)}
-        className="text-gray-700 hover:text-black text-lg"
+        className="text-section-alt hover:opacity-80 text-lg"
         aria-label="Close Chatbot"
       >
         ✖
@@ -285,9 +285,9 @@ const LandingPage: React.FC = () => {
 )}
 
 
-      <section id="destinations"><Destinations /></section>
-      <section id="Activities"><Activities /></section>
-      <section id="bookings"><BookingForm /></section>
+      <section id="destinations" className="bg-section"><Destinations /></section>
+      <section id="Activities" className="bg-section"><Activities /></section>
+      <section id="bookings" className="bg-section"><BookingForm /></section>
     </div>
   );
 };

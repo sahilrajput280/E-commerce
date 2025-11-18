@@ -60,29 +60,62 @@ html {
 
 /* Theme variables */
 :root {
-    --bg: #f7fafc; /* light bg */
-    --card: #ffffff;
+    --bg: #f7fafc; /* base background */
+    --page-bg: #f4f6f2; /* page gradient fallback */
+    --section-bg: #cdd7cd; /* muted section background */
+    --section-alt: #3b5947; /* deep accent sections */
+    --card: #ffffff; /* cards */
+    --card-soft: rgba(255, 255, 255, 0.92);
     --text: #0f172a;
     --muted: #475569;
     --accent: #60a5fa;
+    --section-alt-text: #f8fafc;
 }
 
 /* Dark theme when data-theme="dark" on html */
 html[data-theme="dark"] {
-    --bg: #071025; /* dark navy */
-    --card: #0b1220;
+    --bg: #030712;
+    --page-bg: #0b1220;
+    --section-bg: #111827;
+    --section-alt: #1f2937;
+    --card: #1e293b;
+    --card-soft: rgba(30, 41, 59, 0.92);
     --text: #e6eef8;
     --muted: #9aaac0;
     --accent: #60e1ff;
+    --section-alt-text: #f9fbff;
 }
 
 /* Apply variables globally */
 body {
     background-color: var(--bg);
     color: var(--text);
+    transition: background-color 0.35s ease, color 0.35s ease;
 }
 
 /* small utility: card background */
 .card-bg { background-color: var(--card); }
 .muted { color: var(--muted); }
 .accent { color: var(--accent); }
+
+/* Theming helpers */
+.themed-page { background-color: var(--page-bg); color: var(--text); }
+.bg-section { background-color: var(--section-bg); }
+.bg-section-alt { background-color: var(--section-alt); }
+.bg-card { background-color: var(--card); }
+.bg-card-soft { background-color: var(--card-soft); }
+.text-primary { color: var(--text); }
+.text-muted { color: var(--muted); }
+.text-section-alt { color: var(--section-alt-text); transition: color 0.35s ease; }
+.border-primary { border-color: var(--text) !important; }
+.surface-hover { transition: background-color 0.25s ease, color 0.25s ease; }
+.surface-hover:hover { background-color: var(--card-soft); }
+.theme-outline {
+    border: 1px solid var(--text);
+    color: var(--text);
+    transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+.theme-outline:hover {
+    background-color: var(--text);
+    color: var(--section-alt-text);
+}

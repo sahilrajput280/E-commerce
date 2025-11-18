@@ -35,7 +35,7 @@ const Activities: React.FC = () => {
         {activities.map((activity: Activity, idx: number) => (
           <div
             key={idx}
-            className="bg-white rounded-2xl shadow-md flex flex-col hover:shadow-2xl hover:shadow-gray-500 overflow-hidden"
+            className="bg-white rounded-2xl shadow-md flex flex-col pop-card overflow-hidden"
           >
             <div className="flex">
               {activity.images?.map((img: string, i: number) => (
@@ -64,7 +64,7 @@ const Activities: React.FC = () => {
                   <span className="font-bold text-indigo-700">{activity.price}</span>
                 </div>
                 <button
-                  className="bg-indigo-600 text-white px-5 py-2 rounded-md text-xs font-semibold hover:bg-indigo-700 transition-all"
+                  className="bg-indigo-600 text-white px-5 py-2 rounded-md text-xs font-semibold hover:bg-indigo-700 transition-transform transform hover:-translate-y-0.5 active:translate-y-0"
                   onClick={() => handleAddToCart(activity)}
                 >
                   Add To Cart

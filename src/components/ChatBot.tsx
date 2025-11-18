@@ -13,7 +13,7 @@ const ChatBot: React.FC = () => {
   const [isTyping, setIsTyping] = useState(false);
   const chatEndRef = useRef<HTMLDivElement>(null);
 
-  const handleSend = () => {
+  const handleSend = async () => {
     if (!input.trim()) return;
 
     const userMessage: Message = { sender: "user", text: input.trim() };
@@ -21,31 +21,52 @@ const ChatBot: React.FC = () => {
     setInput("");
     setIsTyping(true);
 
-    const userText = input.toLowerCase();
-    let botReply = "😕 Sorry, I didn’t understand that. Could you please rephrase?";
+    try {
+      const apiKey = import.meta.env.VITE_GEMINI_API_KEY as string | undefined;
+      const model = (import.meta.env.VITE_GEMINI_MODEL_NAME as string | undefined) || "gemini-2.5-flash";
+      const baseUrl = (import.meta.env.VITE_GEMINI_API_URL as string | undefined) || `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
+      const systemPrompt = import.meta.env.VITE_CHATBOT_SYSTEM_PROMPT as string | undefined;
+      const projectInfo = import.meta.env.VITE_CHATBOT_PROJECT_INFO as string | undefined;
 
-    if (userText.includes("book")) {
-      botReply = "📅 You can book a ride anytime using the 'Booking' section on our homepage.";
-    } else if (userText.includes("cancel")) {
-      botReply = "❌ To cancel a booking, please reach out to our customer support.";
-    } else if (userText.includes("car types") || userText.includes("cars")) {
-      botReply = "🚗 We offer hatchbacks, sedans, SUVs, and luxury cars for your travel needs.";
-    } else if (userText.includes("support")) {
-      botReply = "📞 You can email us at support@carse-chalo.com or call us at +91-XXXXXXX.";
-    } else if (userText.includes("hello") || userText.includes("hi")) {
-      botReply = "👋 Hello! How can I assist you today?";
-    } else if (userText.includes("feedback")) {
-      botReply = "📝 We appreciate your feedback! Please email feedback@carse-chalo.com.";
-    } else if (userText.includes("profile")) {
-      botReply = "👤 You can manage your profile by logging in and visiting the Profile section.";
-    } else if (userText.includes("manage cart") || userText.includes("cart")) {
-      botReply = "🛒 You can view or manage your cart using the cart icon in the top navigation bar.";
-    }
+      if (!apiKey) {
+        throw new Error("Missing VITE_GEMINI_API_KEY");
+      }
 
-    setTimeout(() => {
-      setMessages((prev) => [...prev, { sender: "bot", text: botReply }]);
+      const guardrail = systemPrompt || "You are CarSe-Chalo's helpful assistant for this travel e-commerce site. Only answer about our services, bookings, packages, activities, and popular destinations. If a query is unrelated, politely steer back to these topics. Keep answers concise, helpful, and friendly.";
+      const preamble = [guardrail, projectInfo].filter(Boolean).join("\n\n");
+
+      const historyContents = [...messages, userMessage].map((m) => ({
+        role: m.sender === "user" ? "user" : "model",
+        parts: [{ text: m.text }],
+      }));
+      const contents = preamble
+        ? [{ role: "user", parts: [{ text: preamble }] }, ...historyContents]
+        : historyContents;
+
+      const resp = await fetch(`${baseUrl}?key=${apiKey}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ contents }),
+      });
+      const data = await resp.json();
+      if (!resp.ok) {
+        const message = (data && data.error && data.error.message) || "Gemini API error";
+        throw new Error(message);
+      }
+
+      const candidate = data && data.candidates && data.candidates[0];
+      const reply = (candidate && candidate.content && candidate.content.parts && candidate.content.parts.map((p: any) => p.text).join("")) || "";
+      setMessages((prev) => [...prev, { sender: "bot", text: reply || "(No response)" }]);
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Unknown error";
+      console.error("Gemini request failed:", err);
+      setMessages((prev) => [
+        ...prev,
+        { sender: "bot", text: `⚠️ Gemini error: ${message}` },
+      ]);
+    } finally {
       setIsTyping(false);
-    }, 600);
+    }
   };
 
   useEffect(() => {

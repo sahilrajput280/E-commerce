@@ -59,11 +59,11 @@ const About: React.FC = () => (
         {features.map((feature, idx) => (
           <motion.div key={feature.title} variants={featureVariants}>
             {idx !== -1 && <hr className="border-white mb-8" />}
-            <div className="flex flex-col md:flex-row justify-between items-center md:items-baseline w-full">
+            <div className="flex flex-col md:flex-row justify-between items-center md:items-baseline w-full travel-card bg-white/3 p-6 rounded-xl">
               <span className="text-2xl md:text-3xl text-white font-medium">
                 {feature.title}
               </span>
-        
+
               <span className="text-lg md:text-xl text-white font-semibold mt-4 md:mt-0 text-right md:text-left">
                 {feature.subtitle}
               </span>

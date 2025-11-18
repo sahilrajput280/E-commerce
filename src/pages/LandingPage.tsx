@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { useTheme } from "../context/ThemeContext";
 import { Link } from "react-router-dom";
 import About from "../components/About";
 import Services from "../components/services";
 import Destinations from "../components/Destinations";
 import BookingForm from "../components/bookings";
 import Activities from "../components/Activities";
-import ChatBot from "../components/ChatBot"; // adjust the path if needed
+import ChatBot from "../components/ChatBot";
 
 const planeImages = [
   "/images/5.jpg",
@@ -62,7 +63,7 @@ const LandingPage: React.FC = () => {
   }, []);
 
   useEffect(() => {
-  (window as any).openChatBot = () => setShowChatBot(true);
+    (window as unknown as { openChatBot?: () => void }).openChatBot = () => setShowChatBot(true);
   }, []);
 
   useEffect(() => {
@@ -121,15 +122,17 @@ const LandingPage: React.FC = () => {
       {/* Transparent Navbar */}
       <header className="sticky top-0 left-0 w-full flex items-center justify-between px-8 py-4 bg-white/10 backdrop-blur-md shadow-none z-40">
         <div className="flex items-center gap-3">
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/854/854894.png"
-            alt="CarSe-Chalo Logo"
-            className="w-10 h-10 object-contain mr-2"
-          />
-          <span className="ml-2 text-3xl md:text-4xl flex items-center font-sans">
-            <span className="font-black text-gray-900">CarSe</span>
-            <span className="font-normal text-gray-900">-Chalo</span>
-          </span>
+          <div className="logo-glow">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/854/854894.png"
+              alt="CarSe-Chalo Logo"
+              className="w-10 h-10 object-contain mr-2 logo-img"
+            />
+            <span className="ml-2 text-3xl md:text-4xl flex items-center font-sans logo-img">
+              <span className="font-black text-gray-900">CarSe</span>
+              <span className="font-normal text-gray-900">-Chalo</span>
+            </span>
+          </div>
         </div>
 
         {/* Search Bar */}
@@ -179,7 +182,7 @@ const LandingPage: React.FC = () => {
           )}
         </div>
 
-        <nav className="flex items-center gap-1">
+  <nav className="flex items-center gap-1">
           <a href="#home" className="text-gray-800 hover:text-gray-600 font-medium px-3 py-1 rounded hover:bg-blue-100 transition-colors duration-200">HOME</a>
           <a href="#about" className="text-gray-800 hover:text-gray-600 font-medium px-3 py-1 rounded hover:bg-blue-100 transition-colors duration-200">ABOUT</a>
           <a href="#services" className="text-gray-800 hover:text-gray-600 font-medium px-3 py-1 rounded hover:bg-blue-100 transition-colors duration-200">SERVICES</a>
@@ -201,6 +204,8 @@ const LandingPage: React.FC = () => {
               <Link to="/register" className="px-4 py-2 border border-black hover:bg-black hover:text-white transition rounded">REGISTER</Link>
             </>
           )}
+          {/* Theme Toggle */}
+          <ThemeToggle />
         </nav>
       </header>
 
@@ -288,3 +293,17 @@ const LandingPage: React.FC = () => {
 };
 
 export default LandingPage;
+
+const ThemeToggle: React.FC = () => {
+  const { theme, toggle } = useTheme();
+  return (
+    <button
+      onClick={toggle}
+      aria-label="Toggle theme"
+      className="ml-3 p-2 rounded-full bg-white/80 dark:bg-black/60 shadow hover:scale-105 transition-transform"
+      title={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
+    >
+      {theme === "light" ? "🌙" : "☀️"}
+    </button>
+  );
+};

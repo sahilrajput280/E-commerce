@@ -15,14 +15,13 @@ const Destinations: React.FC = () => {
       scrollContainer.appendChild(clone);
     });
 
-    let animationFrame: number;
-    let scrollSpeed = 4; // Increased speed (px per frame)
+  let animationFrame: number;
+  const scrollSpeed = 0.8; // Increased speed (px per frame)
 
     const animate = () => {
       if (!scrollContainer || isPaused.current) return;
       scrollContainer.scrollLeft += scrollSpeed; // Change to += for rightward movement
 
-      // When scrolled past the end, reset to the start
       if (scrollContainer.scrollLeft >= scrollContainer.scrollWidth / 2) {
         scrollContainer.scrollLeft = 0;
       }
@@ -69,7 +68,7 @@ const Destinations: React.FC = () => {
         {destinations.map((dest, idx) => (
           <div
             key={dest.id + "-" + idx}
-            className="flex-shrink-0 w-80 rounded-3xl bg-white shadow-lg overflow-hidden transition-transform duration-200 hover:scale-105"
+            className="flex-shrink-0 w-80 rounded-3xl bg-white shadow-lg overflow-hidden pop-card"
           >
             <img
               src={dest.image}
@@ -84,13 +83,7 @@ const Destinations: React.FC = () => {
           </div>
         ))}
       </div>
-      <div className="flex justify-center mt-8">
-        <span className="bg-blue-100 text-blue-700 px-4 py-2 rounded-full font-semibold text-lg">
-          Press{" "}
-          <span className="bg-blue-500 text-white px-2 py-1 rounded mx-1">C</span>
-          to view recent work
-        </span>
-      </div>
+      {/* Removed 'Press Cto view recent work' as requested */}
     </section>
   );
 };

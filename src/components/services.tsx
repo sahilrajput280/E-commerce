@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { services } from "../data/services";
 
 const extendedServices = [
@@ -60,32 +61,42 @@ const Services: React.FC = () => {
               </span>
             </span>
             <span className="ml-auto text-2xl text-gray-700">
-              <span style={{ display: "inline-block", transform: showDropdown ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s" }}>↓</span>
+              <span className={`extended-chevron`} style={{ transform: showDropdown ? "rotate(180deg)" : "rotate(0deg)" }}>
+                
+              </span>
             </span>
           </div>
-          {showDropdown && (
-            <div className="bg-white rounded-3xl shadow-md mt-2 px-8 py-6">
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                {extendedServices.map((col, idx) => (
-                  <ul className="space-y-2" key={idx}>
-                    {col.map((item, i) =>
-                      item ? (
-                        <li key={i}>{item}</li>
-                      ) : null
-                    )}
+          <AnimatePresence>
+            {showDropdown && (
+              <motion.div
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.34, ease: "easeOut" }}
+                className="bg-white rounded-3xl shadow-md mt-4 px-8 py-6"
+              >
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                  {extendedServices.map((col, idx) => (
+                    <ul className="space-y-2" key={idx}>
+                      {col.map((item, i) =>
+                        item ? (
+                          <li key={i} className="text-gray-700 hover:text-blue-600 transition-colors">{item}</li>
+                        ) : null
+                      )}
+                    </ul>
+                  ))}
+                  <ul className="space-y-2">
+                    <li>
+                      <span className="font-bold">Don't see it?</span>{" "}
+                      <p className="text-blue-400 font-semibold hover:underline cursor-pointer" onClick={() => { (window as unknown as { openChatBot?: () => void }).openChatBot?.(); }}>
+                        Let's Chat
+                      </p>
+                    </li>
                   </ul>
-                ))}
-                <ul className="space-y-2">
-                  <li>
-                    <span className="font-bold">Don't see it?</span>{""}
-<p className="text-blue-400 font-semibold hover:underline" onClick={() => (window as any).openChatBot()}>
-                      Let's Chat
-                    </p>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          )}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </section>

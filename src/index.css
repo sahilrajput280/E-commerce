@@ -4,3 +4,85 @@ html {
     scroll-behavior: smooth;
     font-family: 'Inter', 'Segoe UI', 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
 }
+
+/* --- Custom UI enhancements --- */
+.logo-glow {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.logo-glow::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 260%;
+    height: 260%;
+    pointer-events: none;
+    z-index: 0;
+    background: radial-gradient(circle at 40% 30%, rgba(99,102,241,0.18), transparent 18%), radial-gradient(circle at 70% 70%, rgba(34,211,238,0.10), transparent 28%);
+    filter: blur(18px);
+    transition: opacity 0.35s ease;
+    border-radius: 9999px;
+}
+.logo-img { position: relative; z-index: 10; }
+
+/* Travel Experiences card lift */
+.travel-card {
+    transition: transform 0.45s cubic-bezier(.2,.9,.2,1), box-shadow 0.45s cubic-bezier(.2,.9,.2,1);
+    transform-origin: center;
+    will-change: transform;
+}
+.travel-card:hover {
+    transform: translateY(-16px) scale(1.02);
+    box-shadow: 0 28px 60px rgba(2,6,23,0.28);
+}
+
+/* Discover card pop-up */
+.pop-card {
+    transition: transform 0.32s cubic-bezier(.2,.9,.2,1), box-shadow 0.32s cubic-bezier(.2,.9,.2,1);
+    transform-origin: center;
+}
+.pop-card:hover {
+    transform: translateY(-20px) scale(1.035);
+    box-shadow: 0 34px 80px rgba(2,6,23,0.35);
+    z-index: 40;
+}
+
+/* Extended services toggle chevron */
+.extended-chevron { display: inline-block; transition: transform 0.35s cubic-bezier(.2,.9,.2,1); }
+
+/* subtle utility */
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+.hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Theme variables */
+:root {
+    --bg: #f7fafc; /* light bg */
+    --card: #ffffff;
+    --text: #0f172a;
+    --muted: #475569;
+    --accent: #60a5fa;
+}
+
+/* Dark theme when data-theme="dark" on html */
+html[data-theme="dark"] {
+    --bg: #071025; /* dark navy */
+    --card: #0b1220;
+    --text: #e6eef8;
+    --muted: #9aaac0;
+    --accent: #60e1ff;
+}
+
+/* Apply variables globally */
+body {
+    background-color: var(--bg);
+    color: var(--text);
+}
+
+/* small utility: card background */
+.card-bg { background-color: var(--card); }
+.muted { color: var(--muted); }
+.accent { color: var(--accent); }
